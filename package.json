@@ -5,8 +5,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "commit": "git-cz",
     "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "husky": {
+    "hooks": {
+      "prepare-commit-msg": "exec < /dev/tty && npx cz --hook || true"
+    }
   },
   "keywords": [],
   "license": "ISC",
@@ -22,6 +28,13 @@
   "devDependencies": {
     "@commitlint/cli": "^17.1.2",
     "@commitlint/config-conventional": "^17.1.0",
+    "commitizen": "^4.2.5",
+    "cz-conventional-changelog": "^3.3.0",
     "husky": "^8.0.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
