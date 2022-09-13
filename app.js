@@ -14,9 +14,12 @@ const mongoose = require('mongoose');
 // errors
 
 /* Routes */
-app.get('/', (req, res)=>{
+app.use(express.static('./public'));
+app.use(express.json());
+
+/* app.get('/', (req, res)=>{
   res.send('Hello, World!');
-})
+}) */
 
 /* Start setup */
 
