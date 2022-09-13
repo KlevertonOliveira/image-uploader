@@ -9,17 +9,23 @@ const app = express();
 /* Imports */
 const mongoose = require('mongoose');
 
+const notFound = require('./middleware/not-found');
+const errorHandler = require('./middleware/error-handler');
+
 /* Middleware */
-
-// errors
-
-/* Routes */
 app.use(express.static('./public'));
 app.use(express.json());
+
+
+/* Routes */
 
 /* app.get('/', (req, res)=>{
   res.send('Hello, World!');
 }) */
+
+// errors
+app.use(notFound);
+app.use(errorHandler);
 
 /* Start setup */
 
