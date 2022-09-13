@@ -12,23 +12,21 @@ const mongoose = require('mongoose');
 const notFound = require('./middleware/not-found');
 const errorHandler = require('./middleware/error-handler');
 
+const productRouter = require('./routes/productRoutes');
+
 /* Middleware */
 app.use(express.static('./public'));
 app.use(express.json());
 
 
 /* Routes */
-
-/* app.get('/', (req, res)=>{
-  res.send('Hello, World!');
-}) */
+app.use('/api/v1/products', productRouter);
 
 // errors
 app.use(notFound);
 app.use(errorHandler);
 
 /* Start setup */
-
 const port = process.env.PORT || 5000;
 
 const start = async() => {
