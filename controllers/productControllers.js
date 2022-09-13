@@ -2,19 +2,13 @@ const { StatusCodes } = require('http-status-codes');
 const Product = require('../models/Product');
 
 const createProduct = async(req, res) => {
-  return res
-  .status(StatusCodes.CREATED)
-  .json({
-    message: "Create product route"
-  })
+  const product = await Product.create(req.body);
+  return res.status(StatusCodes.CREATED).json({ product })
 }
 
 const getAllProducts = async(req, res) => {
-  return res
-  .status(StatusCodes.OK)
-  .json({
-    message: "Get all products route"
-  })
+  const products = await Product.find({}); 
+  return res.status(StatusCodes.OK).json({ products })
 }
 
 module.exports = {
