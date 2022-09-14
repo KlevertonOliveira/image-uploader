@@ -3,6 +3,7 @@ const nameInput = document.getElementById('name');
 const priceInput = document.getElementById('price');
 const fileInput = document.getElementById('image');
 const containerSection = document.querySelector('.container');
+const errorMessage = document.getElementById('error-message');
 
 const url = '/api/v1/products';
 
@@ -22,10 +23,12 @@ fileInput.onchange = async() => {
     });
 
     imageValue = src;
+    errorMessage.classList.add('hide-alert');
   } 
   catch (error) {
     imageValue = null;
-    console.log(error);
+    createErrorMessage('Error on image upload.')
+    errorMessage.classList.remove('hide-alert');
   }
 }
 
@@ -44,9 +47,11 @@ form.addEventListener('submit', async(e)=>{
     
     await axios.post(url, product);
     fetchProducts();
+    errorMessage.classList.add('hide-alert');
   } 
   catch (error) {
-    console.log(error);
+    createErrorMessage('Error on submit form')
+    errorMessage.classList.remove('hide-alert');
   }
 })
 
@@ -65,12 +70,20 @@ async function fetchProducts () {
       </article>`
     )
    }).join('')
-   containerSection.innerHTML = productsDOM
-  }
+   containerSection.innerHTML = productsDOM;
 
-  catch (error) {
-    console.log(error);
+   errorMessage.classList.add('hide-alert');
   }
- }
+  
+  catch (error) {
+    createErrorMessage('Error on fetching products.');
+    errorMessage.classList.remove('hide-alert');
+  }
+}
  
- fetchProducts();
+fetchProducts();
+
+function createErrorMessage(message){
+  const span = `<span>${message}</span>`
+  errorMessage.innerHTML = span;
+}
